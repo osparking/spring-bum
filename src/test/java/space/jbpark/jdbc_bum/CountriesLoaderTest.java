@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,6 +42,11 @@ class CountriesLoaderTest {
 
     // 국가 테이블 내용 비우기
     deleteCountries(connection);
+  }
+  
+  @AfterEach
+  void dropTable() {
+    TablesManager.dropTable();
   }
   
   private void deleteCountries(Connection connection) throws SQLException {
