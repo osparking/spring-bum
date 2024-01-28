@@ -21,6 +21,7 @@ class CountriesLoaderTest {
   void openDbConnection() {
     dao = new CountryDao();
     connection = openConnection();
+    TablesManager.createTable();
   }
 
   @Test
