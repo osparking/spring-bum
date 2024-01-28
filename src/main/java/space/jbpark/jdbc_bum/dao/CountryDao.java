@@ -33,7 +33,7 @@ public class CountryDao {
 			ResultSet result = statement.executeQuery();
 			while (result.next()) {
 				countries.add(new Country(result.getString("name"),
-						result.getString("codeName")));
+						result.getString("code_name")));
 			}
 			statement.close();
 		} catch (SQLException e) {
@@ -54,7 +54,7 @@ public class CountryDao {
 			ResultSet result = statement.executeQuery();
 			while (result.next()) {
 				countries.add(new Country(result.getString("name"),
-						result.getString("codeName")));
+						result.getString("code_name")));
 			}
 			statement.close();
 		} catch (SQLException e) {
