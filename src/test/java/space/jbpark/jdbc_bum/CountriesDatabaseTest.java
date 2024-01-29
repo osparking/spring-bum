@@ -21,6 +21,7 @@ class CountriesDatabaseTest {
   private CountriesLoader loader = new CountriesLoader();
 
   private List<Country> expectedCountryList = new ArrayList<>();
+  private List<Country> expectedCountryByName국 = new ArrayList<>();
 
   @BeforeEach
   public void setUp() {
@@ -34,6 +35,9 @@ class CountriesDatabaseTest {
       String[] countryInitData = COUNTRY_INIT_DATA[i];
       Country country = new Country(countryInitData[0], countryInitData[1]);
       expectedCountryList.add(country);
+      if (country.getName().contains("국")) {
+        expectedCountryByName국.add(country);
+      }
     }
   }
 
@@ -43,6 +47,14 @@ class CountriesDatabaseTest {
     assertNotNull(countries);
     assertEquals(expectedCountryList.size(), countries.size());
     expectedCountryList.forEach(exp -> assertTrue(countries.contains(exp)));
+  }
+  
+  @Test
+  void testCountryByName국() {
+    List<Country> countries = dao.getCountryByName("국");
+    assertNotNull(countries);
+    assertEquals(expectedCountryByName국.size(), countries.size());
+    expectedCountryByName국.forEach(exp -> assertTrue(countries.contains(exp)));
   }
   
   @AfterEach
