@@ -1,9 +1,9 @@
 package space.jbpark.jdbc_bum;
 
-import static space.jbpark.jdbc_bum.CountriesLoader.COUNTRY_INIT_DATA;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static space.jbpark.jdbc_bum.CountriesLoader.COUNTRY_INIT_DATA;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,21 +11,29 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import space.jbpark.jdbc_bum.dao.CountryDao;
 import space.jbpark.jdbc_bum.model.Country;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration("classpath:application-context.xml")
 class CountriesDatabaseTest {
 
-  private CountryDao dao = new CountryDao();
-  private CountriesLoader loader = new CountriesLoader();
+  @Autowired
+  private CountryDao dao;
+  
+  @Autowired
+  private CountriesLoader loader;
 
   private List<Country> expectedCountryList = new ArrayList<>();
   private List<Country> expectedCountryByName국 = new ArrayList<>();
 
   @BeforeEach
   public void setUp() {
-    TablesManager.createTable();
     initExpectedCountryLists();
     loader.loadCountries();
   }
