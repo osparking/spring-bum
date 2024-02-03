@@ -8,11 +8,11 @@ import static space.jbpark.jdbc_bum.CountriesLoader.COUNTRY_INIT_DATA;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -49,6 +49,7 @@ class CountriesDatabaseTest {
     }
   }
 
+  @DirtiesContext
   @Test
   void testCountryList() {
     List<Country> countries = dao.getCountries();
@@ -57,16 +58,12 @@ class CountriesDatabaseTest {
     expectedCountryList.forEach(exp -> assertTrue(countries.contains(exp)));
   }
   
+  @DirtiesContext
   @Test
   void testCountryByName국() {
     List<Country> countries = dao.getCountryByName("국");
     assertNotNull(countries);
     assertEquals(expectedCountryByName국.size(), countries.size());
     expectedCountryByName국.forEach(exp -> assertTrue(countries.contains(exp)));
-  }
-  
-  @AfterEach
-  public void dropDown() {
-    TablesManager.dropTable();
   }
 }
